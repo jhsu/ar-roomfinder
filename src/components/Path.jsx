@@ -4,6 +4,13 @@ import _ from "lodash";
 
 const DISTANCE_BETWEEN_DOTS = "1";
 
+/*
+<a-assets>
+  <a-asset-item id="arrow" src="../assets/new-arrow.gltf"></a-asset-item>
+</a-assets>
+<div style={{ backgroundColor: 'black'}}><a-gltf-model src="#arrow"></a-gltf-model></div>
+*/
+
 class Path extends React.Component {
   static propTypes = {
     startPos: propTypes.string,

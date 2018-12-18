@@ -8,10 +8,14 @@ import store from "./store";
 
 import Orientation from "./components/Orientation";
 import Compass from "./components/Compass";
+<<<<<<< Updated upstream
 
 import Building from './components/Building';
 import Path from './components/Path';
 
+=======
+import Path from "./components/Path.jsx";
+>>>>>>> Stashed changes
 import "./style.css";
 
 class App extends React.Component {
