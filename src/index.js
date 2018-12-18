@@ -1,20 +1,13 @@
 import "@babel/polyfill";
 import React from "react";
 import { render } from "react-dom";
-import { bindActionCreators } from "redux";
 import { connect, Provider } from "react-redux";
-import * as roomGeolocations from "./roomGeolocations";
-import { getVirtualScale } from "./spatialConverter";
-
-import store from "./store";
-
-import Orientation from "./components/Orientation";
+import { bindActionCreators } from "redux";
+import Building from "./components/Building";
 import Compass from "./components/Compass";
-
-import Building from './components/Building';
-import PortlandOffice from "./components/PortlandOffice";
-import Path from './components/Path';
-
+import Orientation from "./components/Orientation";
+import Path from "./components/Path";
+import store from "./store";
 import "./style.css";
 
 class App extends React.Component {
@@ -50,8 +43,6 @@ class App extends React.Component {
         heading: {initialHeading}
         <br />
         userPosition: {JSON.stringify(userPosition)}
-        <br />
-        roomCoords:
         <br />
         <a-scene ar arjs="trackingMethod: best;">
           <a-assets>

@@ -35,16 +35,10 @@ function reducer(state = initialState, action) {
       case actions.GEOLOCATION:
         draft.coords = action.coords;
         break;
-      case actions.CAMERA_MOVE:
-        const  {x, y, z} = action.position;
-        const dx = 0 - x;
-        const dy = 1.6 - y;
-        const dz = 0 - z;
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        draft.distanceTraveled = distance;
+      case actions.PLACE_USER:
+        draft.distanceTraveled = action.distance;
         draft.userPosition = action.position;
         break;
-      case actions.PLACE_USER:
       case actions.START_HEADING:
         draft.initialHeading = action.heading;
         break;

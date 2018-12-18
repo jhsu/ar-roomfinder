@@ -1,5 +1,5 @@
-const positionFactor = 11000;
-const geoToVirtualScale = delta => delta * positionFactor;
+const positionFactor = 1 / 111000;
+const geoToVirtualScale = delta => delta / positionFactor;
 
 const getVirtualTargetLocation = (currentGeoLocation, targetGeoLocation) => {
   return {
@@ -8,16 +8,19 @@ const getVirtualTargetLocation = (currentGeoLocation, targetGeoLocation) => {
   };
 };
 
+const getVirtualScaleFromGeoLocation = userLocation => {
+  const x = geoToVirtualScale(userLocation.latitude);
+  const y = 0;
+  const z = geoToVirtualScale(userLocation.longitude);
+  return `${x} ${y} ${z}`;
+};
+
 const getVirtualScale = (userLocation, destinationLocation) => {
   const virtualRoomGeoLocation = getVirtualTargetLocation(
     userLocation,
     destinationLocation
   );
-
-  const x = geoToVirtualScale(virtualRoomGeoLocation.latitude);
-  const y = 0;
-  const z = geoToVirtualScale(virtualRoomGeoLocation.longitude);
-  return `${x} ${y} ${z}`;
+  return getVirtualScaleFromGeoLocation(virtualRoomGeoLocation);
 };
 
-export { getVirtualScale };
+export { getVirtualScale, getVirtualScaleFromGeoLocation };

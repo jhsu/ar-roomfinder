@@ -115,19 +115,21 @@ function* watchGeolocation() {
 }
 
 function* cameraMove(action) {
-  // if this is the first move, than reorient the world
   const userPosition = yield select(state => state.userPosition);
   if (!userPosition) {
-    // TODO: re-orient the world
-    // join with geolocation and orientation
-    yield put({ type: actions.PLACE_USER, position: action.position });
+    const  {x, y, z} = action.position;
+    const dx = 0 - x;
+    const dy = 1.6 - y;
+    const dz = 0 - z;
+    const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+    yield put({ type: actions.PLACE_USER, position: action.position, distance });
   }
 }
 
 export default function*() {
   yield all([
     takeEvery(actions.CAMERA_MOVE, cameraMove),
-    fork(watchOrientation),
-    fork(watchGeolocation)
+    call(watchOrientation),
+    call(watchGeolocation)
   ]);
 }
