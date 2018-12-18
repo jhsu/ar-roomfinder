@@ -5,12 +5,13 @@ class Room extends React.PureComponent {
   render() {
     const { id, x, y, width, height } = this.props;
     return (
-      <a-plane
+      <a-box
         id={id}
         color="#cedfea"
         height={`${height}`}
         width={`${width}`}
-        position={`${x} 0 ${y}`}
+        depth={'2'}
+        position={`${x} 1 ${y}`}
         rotation="-90 0 0"
       />
     );

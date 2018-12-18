@@ -3,8 +3,10 @@ import React from "react";
 const StandByMe = {
   latitude: 45.520441,
   longitude: -122.679561,
-  x: -24,
-  y: 0,
+  x: -25.834,
+  y: 2.8,
+  height: 3,
+  width: 2.5
 };
 
 const CuckoosNest = {
@@ -17,20 +19,24 @@ const CuckoosNest = {
 const AnimalHouse = {
   latitude: 45.520244,
   longitude: -122.679652,
-  x: -24,
-  y: 26,
-  width: 10,
+  x: -23,
+  y: 24,
+  width: 7.5,
   height: 4,
 };
 
 const Goonies = {
-  x: -24,
-  y: 3.15,
+  x: -25.834,
+  y: 6,
+  height: 3,
+  width: 2.5
 };
 
 const ShortCircuit = {
-  x: -24,
-  y: 6.3,
+  x: -25.834,
+  y: 9.38,
+  height: 3,
+  width: 2.5
 };
 
 const Widmer = {

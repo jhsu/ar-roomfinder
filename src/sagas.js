@@ -30,7 +30,7 @@ function* watchOrientation() {
     if (!realOrientation) {
       yield put({
         type: actionTypes.START_HEADING,
-        heading: 180,
+        heading: 0,
       });
       break;
     }

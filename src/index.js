@@ -65,7 +65,7 @@ class App extends React.Component {
             <Path />
           </Orientation>
           </a-entity>
-          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera>
+          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 -0.5 0" data-aframe-default-camera>
           </a-entity>
           <a-sky color="#6EBAA7" />
         </a-scene>
