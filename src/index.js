@@ -3,8 +3,6 @@ import React from "react";
 import { render } from "react-dom";
 import { bindActionCreators } from "redux";
 import { connect, Provider } from "react-redux";
-import * as roomGeolocations from "./roomGeolocations";
-import { getVirtualScale } from "./spatialConverter";
 
 import store from "./store";
 
@@ -12,7 +10,6 @@ import Orientation from "./components/Orientation";
 import Compass from "./components/Compass";
 
 import Building from './components/Building';
-import PortlandOffice from "./components/PortlandOffice";
 import Path from './components/Path';
 
 import "./style.css";
@@ -36,7 +33,7 @@ class App extends React.Component {
     const {
       error,
       // coords,
-      orientation,
+      // orientation,
       userPosition,
       initialHeading,
       initialLocation,
@@ -51,16 +48,16 @@ class App extends React.Component {
         <br />
         userPosition: {JSON.stringify(userPosition)}
         <br />
-        roomCoords:
+        location: {JSON.stringify(initialLocation)}
         <br />
         <a-scene ar arjs="trackingMethod: best;">
           <a-assets>
             <img id="portlandfloor" src="./portland.png" />
           </a-assets>
           <a-entity position="0 -2 0">
-          <Orientation userOrientation={initialHeading}>
+          <Orientation userOrientation={0}>
             {initialLocation && (
-              <Building targetRoomName="CuckoosNest" heading={initialHeading}>
+              <Building targetRoomName="Widmer" heading={initialHeading} userLocation={initialLocation}>
                 <Compass />
               </Building>
             )}
@@ -68,7 +65,6 @@ class App extends React.Component {
           </Orientation>
           </a-entity>
           <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera>
-              <a-box position="0 0.1 -2" width="0.1" height="0.1" depth="0.1" color="#f48042"/>
           </a-entity>
           <a-sky color="#6EBAA7" />
         </a-scene>
