@@ -2,9 +2,10 @@ import React from 'react';
 import Room from './Room';
 import * as roomDetails from '../roomDetails';
 
-const User = ({ position }) => {
+export const User = ({ position }) => {
     return <a-entity
     position={position}
+    id='User'
     >
         <a-sphere position="0 1.6 0" radius="0.3" color="#840e84"></a-sphere>
         <a-box position="0 0.5 0" height="1" width="0.5" depth="0.25" color="#840e84"></a-box>
@@ -45,15 +46,9 @@ export default class PortlandOffice extends React.Component {
       // const rotateFloor = 77.349;
         return (
             <a-entity id="PortlandOffice">>
-                <User position="0 0 0" />
-                <User position={`${longDist} 0 ${latDist}`} />
-
                 <a-entity rotation="0 0 0">
                 </a-entity>
-
-                <User position={`${targetPos.x} 0 ${targetPos.z}`}/>
                 {this.props.children}
-
                 {targetRoomName && getRoom(targetRoomName)}
                 <a-entity id="portlandfloorplan" rotation="0 90 0" position="0 0 0" scale="0.93 0.93 0.93">
                   <a-plane src="#portlandfloor" position="-15 0 -15" height="30" width="30" rotation="-90 0 0"></a-plane>

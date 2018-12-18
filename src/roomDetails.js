@@ -12,8 +12,8 @@ const StandByMe = {
 const CuckoosNest = {
   latitude: 45.520368,
   longitude: -122.679273,
-  x: 0,
-  y: 0,
+  x: -4,
+  y: 3,
 };
 
 const AnimalHouse = {
@@ -40,24 +40,31 @@ const ShortCircuit = {
 };
 
 const Widmer = {
-  x: -12,
-  y: 19.6,
-  height: 4,
+  x: -15,
+  y: 19.349,
+  height: 3.5,
+  width: 2
 };
 
 const Ninkasi = {
-  x: -12,
+  x: -15,
   y: 16,
+  height: 2.5,
+  width: 2.4
 };
 
 const FullSail = {
-  x: -12,
-  y: 12.75,
+  x: -15.2,
+  y: 13.68,
+  height: 2.5,
+  width: 2.4
 };
 
 const Bridgeport = {
-  x: -12,
-  y: 9.56,
+  x: -15.24,
+  y: 11.12,
+  height: 2.5,
+  width: 2.4
 };
 
 export {

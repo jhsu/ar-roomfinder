@@ -7,6 +7,7 @@ import Building from "./components/Building";
 import Compass from "./components/Compass";
 import Orientation from "./components/Orientation";
 import Path from "./components/Path";
+import { User } from "./components/PortlandOffice";
 import SelectRoomModel from "./components/SelectRoomModel";
 import store from "./store";
 import "./style.css";
@@ -56,16 +57,16 @@ class App extends React.Component {
             <img id="portlandfloor" src="./portland.png" />
           </a-assets>
           <a-entity position="0 -2 0">
-          <Orientation userOrientation={0}>
+          <Orientation userOrientation={180}>
             {initialLocation && (
               <Building targetRoomName={targetRoomName} heading={initialHeading} userLocation={initialLocation}>
                 <Compass />
               </Building>
             )}
-            <Path />
           </Orientation>
           </a-entity>
-          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 -0.5 0" data-aframe-default-camera>
+          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls data-aframe-default-camera>
+            <User position="0.030 -1.51 -1.04" />
           </a-entity>
           <a-sky color="#6EBAA7" />
         </a-scene>
