@@ -39,7 +39,7 @@ class App extends React.Component {
         <SelectRoomModel isOpen={!targetRoomName} onSelect={onSelectRoom} />
         <a-scene ar arjs="trackingMethod: best;">
           <a-assets>
-            <img id="portlandfloor" src="../public/portland.png" />
+            <img id="portlandfloor" src="./portland.png" />
           </a-assets>
           <a-entity position="0 -2 0">
             <Orientation userOrientation={180}>
