@@ -1,18 +1,29 @@
 import React from "react";
 import propTypes from "prop-types";
-import { getVirtualScale } from "../spatialConverter";
 
 class Room extends React.PureComponent {
+  static propTypes = {
+    width: propTypes.number,
+    height: propTypes.number,
+    x: propTypes.number,
+    y: propTypes.number,
+  };
+
+  static defaultProps = {
+    width: 3,
+    height: 3,
+  };
+
   render() {
-    const { userLocation, room } = this.props;
-    const position = getVirtualScale(userLocation, room);
+    const { id, x, y, width, height } = this.props;
     return (
-      <a-box
+      <a-plane
+        id={id}
         color="#cedfea"
-        depth="0.2"
-        height="0.2"
-        width="0.2"
-        position={position}
+        height={`${height}`}
+        width={`${width}`}
+        position={`${x} 0 ${y}`}
+        rotation="-90 0 0"
       />
     );
   }

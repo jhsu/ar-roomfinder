@@ -29,22 +29,29 @@ function reducer(state = initialState, action) {
         draft.error = action.error;
         break;
       case actions.ORIENTATION:
+        // draft.initialHeading = action.orientation.webkitCompassHeading;
         draft.orientation = action.orientation;
         break;
       case actions.GEOLOCATION:
         draft.coords = action.coords;
         break;
-      case actions.USER_MOVED:
-        draft.distanceTraveled = action.position;
-        break;
-      case actions.PLACE_USER:
+      case actions.CAMERA_MOVE:
+        const  {x, y, z} = action.position;
+        const dx = 0 - x;
+        const dy = 1.6 - y;
+        const dz = 0 - z;
+        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        draft.distanceTraveled = distance;
         draft.userPosition = action.position;
         break;
+      case actions.PLACE_USER:
       case actions.START_HEADING:
         draft.initialHeading = action.heading;
         break;
       case actions.START_LOCATION:
         draft.initialLocation = action.location;
+        break;
+      default:
         break;
     }
   });

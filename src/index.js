@@ -9,9 +9,12 @@ import { getVirtualScale } from "./spatialConverter";
 import store from "./store";
 
 import Orientation from "./components/Orientation";
-import Room from "./components/Room";
 import Compass from "./components/Compass";
-import Path from "./c oromponents/Path.jsx";
+
+import Building from './components/Building';
+import PortlandOffice from "./components/PortlandOffice";
+import Path from './components/Path';
+
 import "./style.css";
 
 class App extends React.Component {
@@ -32,19 +35,19 @@ class App extends React.Component {
   render() {
     const {
       error,
-      coords,
-      orientation,
+      // coords,
+      // orientation,
       userPosition,
       initialHeading,
-      initialLocation
+      initialLocation,
+      distanceTraveled
     } = this.props;
     return (
       <div style={{ width: "100%", height: "100%" }}>
+        error: {JSON.stringify(error)}<br />
+        distanceTraveled: {distanceTraveled}
         <br />
-        <br />
-        <br />
-        <br />
-        heading: {orientation && orientation.webkitCompassHeading}
+        heading: {initialHeading}
         <br />
         userPosition: {JSON.stringify(userPosition)}
         <br />
@@ -65,32 +68,20 @@ class App extends React.Component {
         roomCoords:
         <br />
         <a-scene ar arjs="trackingMethod: best;">
-          <Orientation userLocation={initialLocation}>
-            <Compass heading={initialHeading} />{" "}
-            <a-box
-              className="north box"
-              width="0.25"
-              height="0.25"
-              depth="0.25"
-              position="0 0 -10"
-              rotation="0 45 0"
-              color="#000000"
-            />
+          <a-assets>
+            <img id="portlandfloor" src="./portland.png" />
+          </a-assets>
+          <a-entity position="0 -2 0">
+          <Orientation userOrientation={initialHeading}>
+            <Compass />
             {initialLocation && (
-              <a-entity>
-                <Room
-                  room={roomGeolocations.STAND_BY_ME}
-                  userLocation={initialLocation}
-                />
-                <Room
-                  room={roomGeolocations.CUCKOOS_NEST}
-                  userLocation={initialLocation}
-                />
-              </a-entity>
+              <Building><PortlandOffice /></Building>
             )}
+            <Path />
           </Orientation>
-          <Path />
-          <a-camera ref={this.cameraRef} />
+          </a-entity>
+          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera></a-entity>
+          <a-sky color="#6EBAA7" />
         </a-scene>
       </div>
     );

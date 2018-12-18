@@ -12,7 +12,7 @@ class Path extends React.Component {
 
   static defaultProps = {
     startPos: "0 0 0",
-    endPos: "0 0 -20
+    endPos: "0 0 -20",
   };
 
   renderPathDots(startPos, endPos) {

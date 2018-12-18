@@ -1,5 +1,6 @@
 import { delay, eventChannel, END } from "redux-saga";
 import {
+  race,
   all,
   fork,
   call,
@@ -11,22 +12,6 @@ import {
 
 import { actions } from "./store";
 
-function* handleAction(action) {
-  yield put({ type: "INACTION" });
-}
-
-function* logger(action) {
-  console.log(action.type);
-}
-
-function* watchLogger() {
-  yield takeEvery("*", logger);
-}
-
-function* watchAction() {
-  yield takeEvery("ACTION", handleAction);
-}
-
 function createOrientationWatcher() {
   return eventChannel(emit => {
     const handler = evt => {
@@ -34,6 +19,9 @@ function createOrientationWatcher() {
     };
     if (window.DeviceOrientationEvent) {
       window.addEventListener("deviceorientation", handler, false);
+    } else {
+      emit({ error: 'no orientation info'});
+      emit(END);
     }
 
     return () => {
@@ -45,9 +33,23 @@ function createOrientationWatcher() {
 function* watchOrientation() {
   const channel = yield call(createOrientationWatcher);
   while (true) {
-    const orientation = yield take(channel);
+    const { realOrientation, timeout } = yield race({ realOrientation: take(channel),  timeout: delay(2500) });
+    const orientation = realOrientation || 180;
     const initialHeading = yield select(state => state.initialHeading);
-    if (!initialHeading) {
+    if (!realOrientation) {
+      yield put({
+        type: actions.START_HEADING,
+        heading: 180,
+      });
+      break;
+    }
+    if (orientation.error) {
+      yield put({
+        type: 'ERROR',
+        error: orientation.error,
+      });
+      continue;
+    } else if (!initialHeading) {
       yield put({
         type: actions.START_HEADING,
         heading: orientation.webkitCompassHeading
@@ -119,15 +121,11 @@ function* cameraMove(action) {
     // TODO: re-orient the world
     // join with geolocation and orientation
     yield put({ type: actions.PLACE_USER, position: action.position });
-  } else {
-    //  yield put({ type: actions.USER_MOVED, position: action.position });
   }
 }
 
 export default function*() {
   yield all([
-    // watchLogger(),
-    watchAction(),
     takeEvery(actions.CAMERA_MOVE, cameraMove),
     fork(watchOrientation),
     fork(watchGeolocation)

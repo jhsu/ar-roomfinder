@@ -1,16 +1,9 @@
 import React from "react";
-import propTypes from "prop-types";
 
 export default class Compass extends React.Component {
-  static propTypes = {
-    heading: 0
-  };
-
   render() {
-    const { heading } = this.props;
-    const rotation = heading == null ? 0 : heading;
     return (
-      <a-entity rotation={`0 ${rotation} 0`}>
+      <a-entity>
         <a-box
           position="0 0 -0.25"
           rotation="0 0 0"
