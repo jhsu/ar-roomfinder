@@ -27,8 +27,8 @@ export default class PortlandOffice extends React.Component {
             longitude: -122.679334,
         },
         userLocation: {
-            latitude: 45.520438,
-            longitude: -122.679555,
+            latitude: 45.520380,
+            longitude: -122.679334,
         },
     };
     render() {
@@ -38,27 +38,25 @@ export default class PortlandOffice extends React.Component {
         const longDist = Math.abs(longitude - originLong) * 111000;
         const latDist = Math.abs(latitude - originLat) * 111000;
 
-        const targetLocation = roomDetails[targetRoomName] || {};
-        const targetPos = {
-            x: Math.abs(targetLocation.longitude - longitude) * 111000,
-            z: Math.abs(targetLocation.latitude - latitude) * 111000,
-        };
+        const targetPos = roomDetails[targetRoomName] || {};
 
-        const moveWorld = {x: longDist, y: 0, z: latDist };
+      // const moveWorld = {x: longDist, y: 0, z: latDist };
+
+      // const rotateFloor = 77.349;
         return (
-            <a-entity>
+            <a-entity id="PortlandOffice">>
                 <User position="0 0 0" />
+                <User position={`${longDist} 0 ${latDist}`} />
+
+                <a-entity rotation="0 0 0">
+                </a-entity>
 
                 <User position={`${targetPos.x} 0 ${targetPos.z}`}/>
                 {this.props.children}
-                <a-entity position={`${moveWorld.x} 0 ${moveWorld.z}`}>
-                    {this.props.children}
-                    <a-box position="0 0 0" width="0.2" height="0.2" depth="0.2" color="#000" />
-                    <a-box position="0 0 -10" width="0.2" height="0.5" depth="0.5" color="#000" />
-                    {targetRoomName && getRoom(targetRoomName)}
-                    <a-entity id="portlandfloorplan" rotation="0 77.349 0" position="4.078 0 -2.043">
-                        <a-plane src="#portlandfloor" position="-15 0 -15" height="30" width="30" rotation="-90 0 0"></a-plane>
-                    </a-entity>
+
+                {targetRoomName && getRoom(targetRoomName)}
+                <a-entity id="portlandfloorplan" rotation="0 90 0" position="0 0 0" scale="0.93 0.93 0.93">
+                  <a-plane src="#portlandfloor" position="-15 0 -15" height="30" width="30" rotation="-90 0 0"></a-plane>
                 </a-entity>
             </a-entity>
         );

@@ -31,7 +31,7 @@ class App extends React.Component {
     const {
       error,
       // coords,
-      orientation,
+      // orientation,
       userPosition,
       initialHeading,
       initialLocation,
@@ -48,7 +48,7 @@ class App extends React.Component {
         <br />
         userPosition: {JSON.stringify(userPosition)}
         <br />
-        targetRoomName: {targetRoomName}
+        location: {JSON.stringify(initialLocation)}
         <br />
         <SelectRoomModel isOpen={!targetRoomName} onSelect={onSelectRoom} />
         <a-scene ar arjs="trackingMethod: best;">
@@ -56,9 +56,9 @@ class App extends React.Component {
             <img id="portlandfloor" src="./portland.png" />
           </a-assets>
           <a-entity position="0 -2 0">
-          <Orientation userOrientation={initialHeading}>
+          <Orientation userOrientation={0}>
             {initialLocation && (
-              <Building targetRoomName={targetRoomName} heading={initialHeading}>
+              <Building targetRoomName={targetRoomName} heading={initialHeading} userLocation={initialLocation}>
                 <Compass />
               </Building>
             )}
@@ -66,7 +66,6 @@ class App extends React.Component {
           </Orientation>
           </a-entity>
           <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera>
-              <a-box position="0 0.1 -2" width="0.1" height="0.1" depth="0.1" color="#f48042"/>
           </a-entity>
           <a-sky color="#6EBAA7" />
         </a-scene>
