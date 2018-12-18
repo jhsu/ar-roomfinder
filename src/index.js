@@ -42,7 +42,7 @@ class App extends React.Component {
             <img id="portlandfloor" src="./portland.png" />
           </a-assets>
           <a-entity position="0 -2 0">
-            <Orientation userOrientation={180}>
+            <Orientation userOrientation={-135}>
               {initialLocation && (
                 <Building targetRoomName={targetRoomName} heading={initialHeading} userLocation={initialLocation}>
                   <Compass />

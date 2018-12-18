@@ -7,8 +7,8 @@ export const User = ({ position }) => {
     position={position}
     id='User'
     >
-        <a-sphere position="0 1.6 0" radius="0.3" color="#840e84"></a-sphere>
-        <a-box position="0 0.5 0" height="1" width="0.5" depth="0.25" color="#840e84"></a-box>
+        <a-sphere position="0 1.2 0" radius="0.12" color="#840e84" ></a-sphere>
+        <a-box position="0 0.5 0" height="1" width="0.3" depth="0.15" color="#840e84" scale=".5"></a-box>
     </a-entity>;
 };
 
