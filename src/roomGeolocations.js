@@ -1,11 +1,14 @@
-const STAND_BY_ME = {
+export const StandByMe = {
   latitude: 45.520441,
   longitude: -122.679561
 };
 
-const CUCKOOS_NEST = {
+export const CuckoosNest = {
   latitude: 45.520368,
   longitude: -122.679273
 };
 
-export { CUCKOOS_NEST, STAND_BY_ME };
+export const AnimalHouse = {
+  latitude: 45.520244,
+  longitude: -122.679652
+};

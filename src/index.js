@@ -36,11 +36,11 @@ class App extends React.Component {
     const {
       error,
       // coords,
-      // orientation,
+      orientation,
       userPosition,
       initialHeading,
       initialLocation,
-      distanceTraveled
+      distanceTraveled,
     } = this.props;
     return (
       <div style={{ width: "100%", height: "100%" }}>
@@ -51,20 +51,6 @@ class App extends React.Component {
         <br />
         userPosition: {JSON.stringify(userPosition)}
         <br />
-        {initialLocation && (
-          <div>
-            standByMe:{" "}
-            {JSON.stringify(
-              getVirtualScale(initialLocation, roomGeolocations.STAND_BY_ME)
-            )}
-            <br />
-            Cuckoos Nest:{" "}
-            {JSON.stringify(
-              getVirtualScale(initialLocation, roomGeolocations.CUCKOOS_NEST)
-            )}
-            <br />
-          </div>
-        )}
         roomCoords:
         <br />
         <a-scene ar arjs="trackingMethod: best;">
@@ -73,14 +59,17 @@ class App extends React.Component {
           </a-assets>
           <a-entity position="0 -2 0">
           <Orientation userOrientation={initialHeading}>
-            <Compass />
             {initialLocation && (
-              <Building><PortlandOffice /></Building>
+              <Building targetRoomName="CuckoosNest" heading={initialHeading}>
+                <Compass />
+              </Building>
             )}
             <Path />
           </Orientation>
           </a-entity>
-          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera></a-entity>
+          <a-entity ref={this.cameraRef} camera="active: true" look-controls wasd-controls position="0 0 0" data-aframe-default-camera>
+              <a-box position="0 0.1 -2" width="0.1" height="0.1" depth="0.1" color="#f48042"/>
+          </a-entity>
           <a-sky color="#6EBAA7" />
         </a-scene>
       </div>
@@ -97,7 +86,8 @@ function mapDispatchToProps(dispatch) {
     {
       onCameraMove: position => {
         return { type: "CAMERA_MOVE", position };
-      }
+      },
+
     },
     dispatch
   );

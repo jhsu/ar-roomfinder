@@ -44,8 +44,8 @@ class Path extends React.Component {
   render() {
     return (
       <a-entity>
-        <a-sphere position={this.props.startPos} radius="0.5" color="#EF2D5E" />
-        <a-sphere position={this.props.endPos} radius="0.5" color="#EF2D5E" />
+        <a-sphere position={this.props.startPos} radius="0.1" color="#EF2D5E" />
+        <a-sphere position={this.props.endPos} radius="0.1" color="#EF2D5E" />
         {this.renderPathDots(this.props.startPos, this.props.endPos)}
       </a-entity>
     );

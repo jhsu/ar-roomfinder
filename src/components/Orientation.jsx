@@ -13,10 +13,6 @@ class Orientation extends React.Component {
 
 Orientation.propTypes = {
   userOrientation: propTypes.number,
-  userLocation: propTypes.shape({
-    latitude: propTypes.number,
-    longitude: propTypes.number
-  })
 };
 
 export default Orientation;
