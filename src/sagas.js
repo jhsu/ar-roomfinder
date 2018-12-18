@@ -1,16 +1,7 @@
-import { delay, eventChannel, END } from "redux-saga";
-import {
-  race,
-  all,
-  fork,
-  call,
-  put,
-  select,
-  take,
-  takeEvery
-} from "redux-saga/effects";
+import { delay, END, eventChannel } from "redux-saga";
+import { all, call, put, race, select, take, takeEvery } from "redux-saga/effects";
 
-import { actions } from "./store";
+import { actionTypes } from "./store";
 
 function createOrientationWatcher() {
   return eventChannel(emit => {
@@ -38,7 +29,7 @@ function* watchOrientation() {
     const initialHeading = yield select(state => state.initialHeading);
     if (!realOrientation) {
       yield put({
-        type: actions.START_HEADING,
+        type: actionTypes.START_HEADING,
         heading: 180,
       });
       break;
@@ -51,12 +42,12 @@ function* watchOrientation() {
       continue;
     } else if (!initialHeading) {
       yield put({
-        type: actions.START_HEADING,
+        type: actionTypes.START_HEADING,
         heading: orientation.webkitCompassHeading
       });
     }
     yield put({
-      type: actions.ORIENTATION,
+      type: actionTypes.ORIENTATION,
       orientation: {
         alpha: orientation.alpha,
         gamma: orientation.gamma,
@@ -99,7 +90,7 @@ function* watchGeolocation() {
 
     if (!initialLocation) {
       yield put({
-        type: actions.START_LOCATION,
+        type: actionTypes.START_LOCATION,
         location: { latitude: coords.latitude, longitude: coords.longitude }
       });
     }
@@ -107,7 +98,7 @@ function* watchGeolocation() {
       yield put({ type: "ERROR", message: coords.error.message });
     } else {
       yield put({
-        type: actions.GEOLOCATION,
+        type: actionTypes.GEOLOCATION,
         coords: { latitude: coords.latitude, longitude: coords.longitude }
       });
     }
@@ -122,13 +113,13 @@ function* cameraMove(action) {
     const dy = 1.6 - y;
     const dz = 0 - z;
     const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
-    yield put({ type: actions.PLACE_USER, position: action.position, distance });
+    yield put({ type: actionTypes.PLACE_USER, position: action.position, distance });
   }
 }
 
 export default function*() {
   yield all([
-    takeEvery(actions.CAMERA_MOVE, cameraMove),
+    takeEvery(actionTypes.CAMERA_MOVE, cameraMove),
     call(watchOrientation),
     call(watchGeolocation)
   ]);

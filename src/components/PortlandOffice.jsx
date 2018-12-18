@@ -1,6 +1,6 @@
 import React from 'react';
 import Room from './Room';
-import * as ROOMS from '../roomGeolocations';
+import * as roomDetails from '../roomDetails';
 
 const User = ({ position }) => {
     return <a-entity
@@ -11,6 +11,10 @@ const User = ({ position }) => {
     </a-entity>;
 };
 
+const getRoom = (targetRoomName) => {
+    const room = roomDetails[targetRoomName];
+    return <Room id={targetRoomName} x={room.x} y={room.y} height={room.height} width={room.width} />
+};
 
 /*
 * This component manages a specific office and knows how to navigate from a location to a target room name
@@ -34,7 +38,7 @@ export default class PortlandOffice extends React.Component {
         const longDist = Math.abs(longitude - originLong) * 111000;
         const latDist = Math.abs(latitude - originLat) * 111000;
 
-        const targetLocation = ROOMS[targetRoomName];
+        const targetLocation = roomDetails[targetRoomName] || {};
         const targetPos = {
             x: Math.abs(targetLocation.longitude - longitude) * 111000,
             z: Math.abs(targetLocation.latitude - latitude) * 111000,
@@ -51,15 +55,7 @@ export default class PortlandOffice extends React.Component {
                     {this.props.children}
                     <a-box position="0 0 0" width="0.2" height="0.2" depth="0.2" color="#000" />
                     <a-box position="0 0 -10" width="0.2" height="0.5" depth="0.5" color="#000" />
-                    <Room id="StandByMe" x={-24} y={0} />
-                    <Room id="CuckoosNest" x={0} y={0} />
-                    <Room id="Goonies"  x={-24} y={3.15} />
-                    <Room id="ShortCircuit" x={-24} y={6.3} />
-                    <Room id="AnimalHouse" x={-24} y={26} width={10} height={4}/>
-                    <Room id="Widmer" x={-12} y={19.6} height={4} />
-                    <Room id="Ninkasi" x={-12} y={16} />
-                    <Room id="FullSail" x={-12} y={12.75} />
-                    <Room id="Bridgeport" x={-12} y={9.6} />
+                    {targetRoomName && getRoom(targetRoomName)}
                     <a-entity id="portlandfloorplan" rotation="0 77.349 0" position="4.078 0 -2.043">
                         <a-plane src="#portlandfloor" position="-15 0 -15" height="30" width="30" rotation="-90 0 0"></a-plane>
                     </a-entity>

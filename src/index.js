@@ -2,13 +2,15 @@ import "@babel/polyfill";
 import React from "react";
 import { render } from "react-dom";
 import { connect, Provider } from "react-redux";
-import { bindActionCreators } from "redux";
+import { onCameraMove, onSelectRoom } from "./actions";
 import Building from "./components/Building";
 import Compass from "./components/Compass";
 import Orientation from "./components/Orientation";
 import Path from "./components/Path";
+import SelectRoomModel from "./components/SelectRoomModel";
 import store from "./store";
 import "./style.css";
+import 'lucid-ui/dist/index.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -34,6 +36,8 @@ class App extends React.Component {
       initialHeading,
       initialLocation,
       distanceTraveled,
+      targetRoomName,
+      onSelectRoom
     } = this.props;
     return (
       <div style={{ width: "100%", height: "100%" }}>
@@ -44,6 +48,9 @@ class App extends React.Component {
         <br />
         userPosition: {JSON.stringify(userPosition)}
         <br />
+        targetRoomName: {targetRoomName}
+        <br />
+        <SelectRoomModel isOpen={!targetRoomName} onSelect={onSelectRoom} />
         <a-scene ar arjs="trackingMethod: best;">
           <a-assets>
             <img id="portlandfloor" src="./portland.png" />
@@ -51,7 +58,7 @@ class App extends React.Component {
           <a-entity position="0 -2 0">
           <Orientation userOrientation={initialHeading}>
             {initialLocation && (
-              <Building targetRoomName="CuckoosNest" heading={initialHeading}>
+              <Building targetRoomName={targetRoomName} heading={initialHeading}>
                 <Compass />
               </Building>
             )}
@@ -72,17 +79,10 @@ function mapStateToProps(state, ownProps) {
   return state;
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      onCameraMove: position => {
-        return { type: "CAMERA_MOVE", position };
-      },
-
-    },
-    dispatch
-  );
-}
+const mapDispatchToProps = {
+  onCameraMove,
+  onSelectRoom,
+};
 
 const ConnectedApp = connect(
   mapStateToProps,

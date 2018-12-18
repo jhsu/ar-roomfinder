@@ -4,14 +4,15 @@ import createSagaMiddleware from "redux-saga";
 
 import rootSagas from "./sagas";
 
-export const actions = {
+export const actionTypes = {
   ORIENTATION: "ORIENTATION",
   GEOLOCATION: "GEOLOCATION",
   CAMERA_MOVE: "CAMERA_MOVE",
   PLACE_USER: "PLACE_USER",
   USER_MOVED: "USER_MOVED",
   START_HEADING: "START_HEADING",
-  START_LOCATION: "START_LOCATION"
+  START_LOCATION: "START_LOCATION",
+  SELECT_ROOM: "SELECT_ROOM",
 };
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   initialLocation: null,
   orientation: null,
   coords: {},
-  userPosition: null
+  userPosition: null,
+  targetRoomName: undefined,
 };
 
 function reducer(state = initialState, action) {
@@ -28,22 +30,25 @@ function reducer(state = initialState, action) {
       case "ERROR":
         draft.error = action.error;
         break;
-      case actions.ORIENTATION:
+      case actionTypes.ORIENTATION:
         // draft.initialHeading = action.orientation.webkitCompassHeading;
         draft.orientation = action.orientation;
         break;
-      case actions.GEOLOCATION:
+      case actionTypes.GEOLOCATION:
         draft.coords = action.coords;
         break;
-      case actions.PLACE_USER:
+      case actionTypes.PLACE_USER:
         draft.distanceTraveled = action.distance;
         draft.userPosition = action.position;
         break;
-      case actions.START_HEADING:
+      case actionTypes.START_HEADING:
         draft.initialHeading = action.heading;
         break;
-      case actions.START_LOCATION:
+      case actionTypes.START_LOCATION:
         draft.initialLocation = action.location;
+        break;
+      case actionTypes.SELECT_ROOM:
+        draft.targetRoomName = action.data;
         break;
       default:
         break;

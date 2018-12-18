@@ -1,19 +1,7 @@
 import React from "react";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
 class Room extends React.PureComponent {
-  static propTypes = {
-    width: propTypes.number,
-    height: propTypes.number,
-    x: propTypes.number,
-    y: propTypes.number,
-  };
-
-  static defaultProps = {
-    width: 3,
-    height: 3,
-  };
-
   render() {
     const { id, x, y, width, height } = this.props;
     return (
@@ -29,9 +17,18 @@ class Room extends React.PureComponent {
   }
 }
 
+Room.defaultProps = {
+  width: 3,
+  height: 3,
+  x: 0,
+  y: 0
+};
+
 Room.propTypes = {
-  userLocation: propTypes.object,
-  room: propTypes.object
+  width: PropTypes.number,
+  height: PropTypes.number,
+  x: PropTypes.number,
+  y: PropTypes.number,
 };
 
 export default Room;
